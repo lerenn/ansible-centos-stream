@@ -1,0 +1,9 @@
+---
+  - hosts: server
+    user: root
+
+    roles:
+      - repositories
+      - docker
+      - ssh
+      - tools

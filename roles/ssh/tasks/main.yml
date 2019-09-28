@@ -1,0 +1,14 @@
+---
+- name: Configuration du SSH
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "{{ item.regex }}"
+    line: "{{ item.result }}"
+  with_items:
+    - { regex: '^PermitRootLogin .*', result: 'PermitRootLogin without-password' }
+  notify: SSH restart
+
+- name: SSH restart
+  service: name=sshd
+           enabled=yes
+           state=started

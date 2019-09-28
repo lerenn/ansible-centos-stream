@@ -1,0 +1,15 @@
+---
+  - name: Install docker and dependencies
+    yum:
+      name: "{{ packages }}"
+    vars:
+      packages:
+        - docker
+        - python-pip
+        - python-docker
+
+
+  - name: Docker running and enabled
+    service: name=docker
+             enabled=yes
+             state=started

@@ -1,0 +1,7 @@
+---
+  - name: Install tools
+    yum:
+      name: "{{ packages }}"
+    vars:
+      packages:
+      - htop
