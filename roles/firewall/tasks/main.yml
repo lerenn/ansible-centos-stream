@@ -1,0 +1,13 @@
+---
+  - name: Install firewalld
+    yum:
+      name: "{{ packages }}"
+    vars:
+      packages:
+        - firewalld
+
+  - name: Docker running and enabled
+    service:
+      name: firewalld
+      enabled: yes
+      state: started
