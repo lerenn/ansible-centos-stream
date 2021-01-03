@@ -1,0 +1,9 @@
+---
+  - name: Install docker and dependencies if Centos 7
+    yum:
+      name: "{{ packages }}"
+    vars:
+      packages:
+        - docker
+        - python-pip
+        - python-docker 

@@ -6,3 +6,4 @@
       packages:
       - xorg-x11-xauth
       - htop
+      - vim

@@ -1,6 +1,7 @@
 ---
   - hosts: server
-    user: root
+    user: centos
+    become: yes
 
     roles:
       - repositories

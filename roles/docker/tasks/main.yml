@@ -1,13 +1,11 @@
 ---
-  - name: Install docker and dependencies
-    yum:
-      name: "{{ packages }}"
-    vars:
-      packages:
-        - docker
-        - python-pip
-        - python-docker
+  - name: Import Centos7 tasks if detected
+    import_tasks: centos7.yml
+    when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
 
+  - name: Import Centos8 tasks if detected
+    import_tasks: centos8.yml
+    when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '8'
 
   - name: Docker running and enabled
     service: name=docker
