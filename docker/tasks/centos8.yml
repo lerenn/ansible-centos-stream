@@ -1,11 +1,13 @@
 ---
   - name: Add Docker repository
+    become: yes
     yum_repository:
       name: docker-ce
       description: Docker CE repo
       baseurl: https://download.docker.com/linux/centos/$releasever/$basearch/stable
 
   - name: Install Docker 
+    become: yes
     yum:
       name: "{{ packages }}"
     vars:
@@ -15,6 +17,7 @@
         - containerd.io
 
   - name: Install pip3 if Centos 8
+    become: yes
     yum:
       name: "{{ packages }}"
     vars:
@@ -22,6 +25,7 @@
         - python3-pip
 
   - name: Install docker python dependencies on Centos 8
+    become: yes
     pip:
       name: docker
 

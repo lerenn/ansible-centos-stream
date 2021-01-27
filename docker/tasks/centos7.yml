@@ -1,5 +1,6 @@
 ---
   - name: Install docker and dependencies if Centos 7
+    become: yes
     yum:
       name: "{{ packages }}"
     vars:
