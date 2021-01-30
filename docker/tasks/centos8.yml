@@ -4,6 +4,7 @@
     yum_repository:
       name: docker-ce
       description: Docker CE repo
+      gpgkey: https://download.docker.com/linux/centos/gpg
       baseurl: https://download.docker.com/linux/centos/$releasever/$basearch/stable
 
   - name: Install Docker and requirements
