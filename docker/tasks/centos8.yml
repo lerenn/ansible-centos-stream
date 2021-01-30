@@ -6,7 +6,7 @@
       description: Docker CE repo
       baseurl: https://download.docker.com/linux/centos/$releasever/$basearch/stable
 
-  - name: Install Docker 
+  - name: Install Docker and requirements
     become: yes
     yum:
       name: "{{ packages }}"
