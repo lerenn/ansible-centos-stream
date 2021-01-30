@@ -21,6 +21,13 @@
       - Reset iptables
       - Docker running and enabled
 
+  - name: Add user to Docker group
+    become: yes
+    user:
+      name: '{{ ansible_user }}'
+      groups: docker
+      append: yes
+
   - name: Install pip3 if Centos 8
     become: yes
     yum:
