@@ -20,9 +20,7 @@
 - name: Set inventory ansible_port to default
   set_fact:
     ansible_port: "22"
-  when: default_ssh is defined and
-        default_ssh.state is not undefined and
-        default_ssh.state == "started"
+  when: default_ssh.failed == False
   register: ssh_port_set
 
 # Sanity check, make sure Ansible is able to connect to the host
