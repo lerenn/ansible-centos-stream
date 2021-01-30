@@ -83,6 +83,7 @@
     proto: "tcp"
     setype: "ssh_port_t"
     state: "present"
+  ignore_errors: "yes"
 
 # Set firewalld
 - name: Set configured port in firewalld if present
