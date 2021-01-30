@@ -12,6 +12,7 @@
       name: "{{ packages }}"
     vars:
       packages:
+        - iptables-services
         - docker-ce
         - docker-ce-cli
         - containerd.io
