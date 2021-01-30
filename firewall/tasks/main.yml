@@ -6,7 +6,6 @@
     vars:
       packages:
         - firewalld
-    notify: Firewalld started and enabled
 
   - name: Be sure that SSH in firewalld if present
     become: yes
@@ -17,6 +16,7 @@
       state: enabled
     ignore_errors: "yes"
     register: ssh_port_rule_ok
+    notify: Firewalld started and enabled
 
   - name: Add it to configuration file if it failed
     become: yes
@@ -28,4 +28,7 @@
     with_items:
       - "<port protocol=\"tcp\" port=\"{{ ansible_port }}\"/>"
     when: ssh_port_rule_ok.failed == True
+    notify: Firewalld started and enabled
   
+  - name: Run role handlers now
+    meta: flush_handlers
