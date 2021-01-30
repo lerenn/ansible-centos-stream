@@ -16,5 +16,16 @@
       immediate: true
       state: enabled
     ignore_errors: "yes"
+    register: ssh_port_rule_ok
 
+  - name: Add it to configuration file if it failed
+    become: yes
+    lineinfile:
+      path: /etc/firewalld/zones/public.xml
+      regexp: " *{{ item }}$"
+      insertafter: '</description>$'
+      line: "  {{ item }}"
+    with_items:
+      - "<port protocol=\"tcp\" port=\"{{ ansible_port }}\"/>"
+    when: ssh_port_rule_ok.failed == True
   
