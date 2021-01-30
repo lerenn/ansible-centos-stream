@@ -1,0 +1,13 @@
+---
+  - name: Reset iptables
+    become: yes
+    shell: "{{ item }}"
+    with_items:
+      - "iptables -t filter -F"
+      - "iptables -t filter -X"
+      
+  - name: Docker running and enabled
+    become: yes
+    service: name=docker
+              enabled=yes
+              state=started

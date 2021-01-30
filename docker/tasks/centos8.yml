@@ -16,6 +16,9 @@
         - docker-ce
         - docker-ce-cli
         - containerd.io
+    notify: 
+      - Reset iptables
+      - Docker running and enabled
 
   - name: Install pip3 if Centos 8
     become: yes
