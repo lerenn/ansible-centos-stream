@@ -16,9 +16,6 @@
   ignore_errors: "yes"
   register: default_ssh
 
-- debug:
-    var: default_ssh
-
 # If reachable, continue the following tasks with this port
 - name: Set inventory ansible_port to default
   set_fact:
