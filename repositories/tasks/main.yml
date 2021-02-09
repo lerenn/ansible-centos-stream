@@ -8,12 +8,16 @@
 
 - name: Swap to Centos repositories
   become: yes
-  shell: dnf swap centos-stream-repos
+  shell: dnf -y swap centos-{linux,stream}-repos
+  args:
+    warn: false
   when: stream_repositories.changed
 
 - name: Sync Centos to Centos Stream
   become: yes
-  shell: dnf distro-sync
+  shell: dnf -y distro-sync
+  args:
+    warn: false
   when: stream_repositories.changed
 
 - name: Check if EPEL repo is already configured.
