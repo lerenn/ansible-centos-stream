@@ -1,4 +1,21 @@
 ---
+- name: Install Centos Stream repositories
+  become: yes
+  dnf:
+    name: centos-release-stream
+    state: present
+  register: stream_repositories
+
+- name: Swap to Centos repositories
+  become: yes
+  shell: dnf swap centos-stream-repos
+  when: stream_repositories.changed
+
+- name: Sync Centos to Centos Stream
+  become: yes
+  shell: dnf distro-sync
+  when: stream_repositories.changed
+
 - name: Check if EPEL repo is already configured.
   stat: path={{ epel_repofile_path }}
   register: epel_repofile_result

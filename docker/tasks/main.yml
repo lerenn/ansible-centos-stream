@@ -1,11 +1,45 @@
 ---
-  - name: Import Centos7 tasks if detected
-    import_tasks: centos7.yml
-    when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+  - name: Add Docker repository
+    become: yes
+    yum_repository:
+      name: docker-ce
+      description: Docker CE repo
+      gpgkey: https://download.docker.com/linux/centos/gpg
+      baseurl: https://download.docker.com/linux/centos/$releasever/$basearch/stable
 
-  - name: Import Centos8 tasks if detected
-    import_tasks: centos8.yml
-    when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '8'
+  - name: Install Docker and requirements
+    become: yes
+    yum:
+      name: "{{ packages }}"
+    vars:
+      packages:
+        - iptables-services
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+    notify: 
+      - Reset iptables
+      - Docker running and enabled
+
+  - name: Add user to Docker group
+    become: yes
+    user:
+      name: '{{ ansible_user }}'
+      groups: docker
+      append: yes
+
+  - name: Install pip3 if Centos 8
+    become: yes
+    yum:
+      name: "{{ packages }}"
+    vars:
+      packages:
+        - python3-pip
+
+  - name: Install docker python dependencies on Centos 8
+    become: yes
+    pip:
+      name: docker
 
   - name: Run role handlers now
     meta: flush_handlers
